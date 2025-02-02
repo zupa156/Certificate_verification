@@ -23,31 +23,31 @@ public class User {
 	@Column(name = "UserId")
 	private String userId;
 
-	@Column(name = "Address")
+	@Column(name = "Address", length=255)
 	private String address;
 
-	@Column(name = "Designation")
+	@Column(name = "Designation", length=50)
 	private String designation;
 
-	@Column(name = "email")
+	@Column(name = "email", length=50)
 	private String email;
 
-	@Column(name = "organization")
+	@Column(name = "organization", length=50)
 	private String organization;
 
-	@Column(name = "PhoneNumber")
+	@Column(name = "PhoneNumber", length=20)
 	private String phoneNumber;
 
-	@Column(name = "ReasonForVerification")
+	@Column(name = "ReasonForVerification", length=100)
 	private String reasonForVerification;
 
-	@Column(name = "TypeOfUser")
+	@Column(name = "TypeOfUser", length=20)
 	private String typeOfUser;
 
-	@Column(name = "UserName")
+	@Column(name = "UserName", length=50)
 	private String userName;
 
-	@Column(name = "UserPassword")
+	@Column(name = "UserPassword", length=68)
 	private String password;
 
 	@OneToMany(mappedBy = "user")

@@ -29,16 +29,16 @@ public class Verification {
 	@Id
 	@Column(name="VerificationId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int VerificationId;
+	private int verificationId;
 
 	@Column(name="status")
-	private String Status;
+	private String status;
 
 	@Column(name="Type")
 	private String Type;
 
 	@Temporal(TemporalType.DATE)
-	private Date VerifiedDate;
+	private Date verifiedDate;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="certificateId", referencedColumnName = "certificateId")
