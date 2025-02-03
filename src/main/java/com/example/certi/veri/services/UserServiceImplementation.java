@@ -1,5 +1,6 @@
 package com.example.certi.veri.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.certi.veri.entity.User;
@@ -9,7 +10,10 @@ import com.example.certi.veri.repository.UserRepository;
 @Service
 public class UserServiceImplementation implements UserService{
 
+	@Autowired
 	UserRepository urep;
+	
+	
 	@Override
 	public String addUser(User user) {
 		urep.save(user);
@@ -33,6 +37,17 @@ public class UserServiceImplementation implements UserService{
 		}else {
 			return "Invalid email or password";
 		}	
+	}
+
+	@Override
+	public String deleteUser(String userId) {
+		if(urep.existsById(userId)) {
+			urep.deleteById(userId);
+			return "User with ID "+ userId+" has been deleted";
+		}
+		else {
+			return "User with ID "+userId+" does not exist";
+		}
 	}
 
 }

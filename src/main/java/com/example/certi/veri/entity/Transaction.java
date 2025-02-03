@@ -5,6 +5,8 @@ import java.util.Date;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,24 +27,26 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "transaction")
 public class Transaction {
+	
 	@Id
-	@Column(name="TransactionId")
+	@Column(name="transactionId", length=20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int TransactionId;
+	private int transactionId;
 
-	@Column(name="amount")
+	@Column(name="amount", nullable=false)
 	private float amount;
 
-	@Column(name="Description", length=50)
-	private String Description;
+	@Column(name="description", length=50)
+	private String description;
 
-	@Column(name="TransactionDate")
+	@Column(name="transactionDate", nullable=false)
 	@Temporal(TemporalType.DATE)
-	private Date TransactionDate;
+	private Date transactionDate;
 
 
-	@Column(name="TransactionType", length=50)
-	private String TransactionType;
+	//@Enumerated(EnumType.STRING)
+	@Column(name="transactionType", length=50)
+	private String transactionType;
 
 	
 //	@Column(name="UserId",table="transaction")
@@ -51,11 +55,11 @@ public class Transaction {
 	
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@JoinColumn(name = "userId", referencedColumnName = "userId") //Foreign key
 	private User user;
 	
 	 @OneToOne(cascade = CascadeType.ALL)
-	 @JoinColumn(name = "verificationId", referencedColumnName = "verificationId")
+	 @JoinColumn(name = "verificationId", referencedColumnName = "verificationId") //Foreign key
 	 private Verification verification;
 
 }

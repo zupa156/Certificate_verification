@@ -20,37 +20,37 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 public class User {
 	@Id
-	@Column(name = "UserId")
+	@Column(name = "userId", length=20)
 	private String userId;
 
-	@Column(name = "Address", length=255)
+	@Column(name = "address", length=255, nullable=false)
 	private String address;
 
-	@Column(name = "Designation", length=50)
+	@Column(name = "designation", length=50, nullable=false)
 	private String designation;
 
-	@Column(name = "email", length=50)
+	@Column(name = "email", length=50, nullable=false)
 	private String email;
 
-	@Column(name = "organization", length=50)
+	@Column(name = "organization", length=50, nullable=false)
 	private String organization;
 
-	@Column(name = "PhoneNumber", length=20)
+	@Column(name = "phoneNumber", length=20, nullable=false)
 	private String phoneNumber;
 
-	@Column(name = "ReasonForVerification", length=100)
+	@Column(name = "reasonForVerification", length=100, nullable=false)
 	private String reasonForVerification;
 
-	@Column(name = "TypeOfUser", length=20)
+	@Column(name = "typeOfUser", length=20, nullable=false)
 	private String typeOfUser;
 
-	@Column(name = "UserName", length=50)
+	@Column(name = "name", length=50, nullable=false)
 	private String userName;
 
-	@Column(name = "UserPassword", length=68)
-	private String password;
+	@Column(name = "userPassword", length=68, nullable=false)
+	private String password; 
 
 	@OneToMany(mappedBy = "user")
-	private List<Transaction> transaction;
+	private List<Transaction> transactions;
 
 }

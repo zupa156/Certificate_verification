@@ -2,6 +2,7 @@ package com.example.certi.veri.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -17,22 +18,22 @@ import lombok.NoArgsConstructor;
 public class Mark {
 	
 	@Id
-	@Column(name = "MarksId", length=50, nullable=false)
+	@Column(name = "marksId", length=20, nullable=false)
 	private String marksId;
 
-	@Column(name = "Grade")
+	@Column(name = "grade", nullable=false)
 	private String grade;
 
-	@Column(name = "MaximumMarks")
+	@Column(name = "maximumMarks", nullable=false)
 	private int maximumMarks;
 
-	@Column(name = "ObtainedMarks")
+	@Column(name = "obtainedMarks", nullable=false)
 	private int obtainedMarks;
 
-	@Column(name = "Percentage")
+	@Column(name = "percentage", nullable=false)
 	private float percentage;
 
-	@OneToOne(mappedBy = "marks")
+	@OneToOne(mappedBy = "marks", fetch = FetchType.EAGER)
 	private Certificate certificate;
 
 	

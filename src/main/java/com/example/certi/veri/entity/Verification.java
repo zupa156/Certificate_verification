@@ -7,10 +7,12 @@ import java.util.Date;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -27,23 +29,23 @@ import lombok.NoArgsConstructor;
 @Table(name = "verification")
 public class Verification {
 	@Id
-	@Column(name="VerificationId")
+	@Column(name="verificationId", length=20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int verificationId;
 
-	@Column(name="status")
+	@Column(name="status", nullable=false)
 	private String status;
 
-	@Column(name="Type")
+	@Column(name="type")
 	private String Type;
 
 	@Temporal(TemporalType.DATE)
 	private Date verifiedDate;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="certificateId", referencedColumnName = "certificateId")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="certificateId", referencedColumnName = "certificateId") //Foreign key
 	private Certificate certificate;
 	
-	@OneToOne(mappedBy = "verification")
+	@OneToOne(mappedBy = "verification", fetch = FetchType.EAGER)
     private Transaction transaction;
 }
