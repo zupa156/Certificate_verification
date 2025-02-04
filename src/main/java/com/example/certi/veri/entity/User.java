@@ -1,12 +1,18 @@
 package com.example.certi.veri.entity;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +26,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 public class User {
 	@Id
+//	@Version
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId", length=20)
 	private String userId;
 
@@ -36,7 +44,7 @@ public class User {
 	private String organization;
 
 	@Column(name = "phoneNumber", length=20, nullable=false)
-	private String phoneNumber;
+	private String phone_number;
 
 	@Column(name = "reasonForVerification", length=100, nullable=false)
 	private String reasonForVerification;
@@ -45,12 +53,13 @@ public class User {
 	private String typeOfUser;
 
 	@Column(name = "name", length=50, nullable=false)
-	private String userName;
+	private String name;
 
 	@Column(name = "userPassword", length=68, nullable=false)
-	private String password; 
+	private String user_password; 
 
+	@Transient
 	@OneToMany(mappedBy = "user")
-	private List<Transaction> transactions;
+	private Map<String, Transaction> transactios=new HashMap<String, Transaction>();
 
 }

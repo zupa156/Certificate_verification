@@ -55,7 +55,7 @@ public class Transaction {
 	
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId", referencedColumnName = "userId") //Foreign key
+	@JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false) //Foreign key
 	private User user;
 	
 	 @OneToOne(cascade = CascadeType.ALL)

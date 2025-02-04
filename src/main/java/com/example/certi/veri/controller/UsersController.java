@@ -11,7 +11,7 @@ import com.example.certi.veri.entity.User;
 import com.example.certi.veri.services.UserServiceImplementation;
 
 @RestController
-@RequestMapping("/api/certi")
+@RequestMapping("/api/certi/users")
 public class UsersController {
 	
 	@Autowired
@@ -24,11 +24,17 @@ public class UsersController {
 		if(userv.emailExists(user.getEmail())){
 			return "Email already exist. please use different email.";
 		}
-		return userv.addUser(user);
+		try {
+			userv.addUser(user);
+		}catch(Exception e) {
+			return "Got an exception";
+		}
+		return "Success";
 	}
 	
 	
 	//Login of the user
+	@PostMapping("/login")
 	public String login(@RequestParam String email, @RequestParam String password) {
 		return userv.login(email, password);
 	}
