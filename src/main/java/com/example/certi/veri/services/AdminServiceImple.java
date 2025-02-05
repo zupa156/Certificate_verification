@@ -1,7 +1,13 @@
 package com.example.certi.veri.services;
 
+import org.springframework.stereotype.Service;
+
 import com.example.certi.veri.entity.Admin;
 
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
 public class AdminServiceImple implements AdminService {
 
 	//Hard-coding right now later will change it

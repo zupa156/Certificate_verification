@@ -1,5 +1,6 @@
 package com.example.certi.veri.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class CertificateServiceImplentation implements CertificateService {
 	public boolean certiExist(String id) {
 			return crep.existsById(id);
 	
+	}
+
+	@Override
+	public List<Certificate> getAllCertificate() {
+		return crep.findAll();
 	}
 
 }

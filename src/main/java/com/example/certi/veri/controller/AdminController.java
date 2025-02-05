@@ -59,6 +59,15 @@ public class AdminController {
 		return certi.map(ResponseEntity::ok)
 				.orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
+	
+	@GetMapping("/getCertis")
+	public ResponseEntity<List<Certificate>> getAllCertificate(){
+		List<Certificate> certis= cserv.getAllCertificate();
+		if(certis.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		}
+		return ResponseEntity.ok(certis);
+	}
 
 	@DeleteMapping("/deleteCerti/{id}")
 	public ResponseEntity<Void> deleteCertificate(@PathVariable String id) {
