@@ -6,4 +6,6 @@ import com.example.certi.veri.entity.Transaction;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Integer>{
 
+	Transaction findByOrderId(String orderId);
+
 }

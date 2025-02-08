@@ -51,4 +51,10 @@ public class VerificationServiceImple implements VerificationService{
 		
 	}
 
+	@Override
+	public String addVerification(Verification veri) {
+		vrep.save(veri);
+		return "Verification done";
+	}
+
 }
