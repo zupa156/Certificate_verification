@@ -48,7 +48,7 @@ public class Certificate {
 	private int prn;
 
 	@Column(name = "student_Name", length=50, nullable=false)
-	private String student_Name;
+	private String studentName;
 	
 	//@Transient
 	@OneToOne(cascade = CascadeType.ALL)

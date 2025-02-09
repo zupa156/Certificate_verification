@@ -28,10 +28,10 @@ public class User {
 	@Id
 //	@Version
 	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "userId", length=20)
+	@Column(name = "userId", length=20, nullable = false)
 	private String userId;
 
-	@Column(name = "address", length=255, nullable=false)
+	@Column(name = "address", length=255, nullable = false)
 	private String address;
 
 	@Column(name = "designation", length=50, nullable=false)

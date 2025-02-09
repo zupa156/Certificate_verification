@@ -3,12 +3,15 @@ package com.example.certi.veri.services;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import com.example.certi.veri.repository.TransactionRepository;
 import com.razorpay.Order;
 import com.razorpay.Payment;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 
+@Service
 public class TransactionServiceImple implements TransactionService{
 
 	@Autowired

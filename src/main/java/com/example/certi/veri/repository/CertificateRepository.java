@@ -9,5 +9,5 @@ import com.example.certi.veri.entity.Certificate;
 
 @Repository
 public interface CertificateRepository extends JpaRepository<Certificate, String>{
-	Optional<Certificate> findByCertificateIdAndStudentNameAndPrn(String certificateId, String studentName, int prn);
+	  Optional<Certificate> findByCertificateIdAndStudentNameAndPrn(String certificateId, String studentName, int prn);
 }

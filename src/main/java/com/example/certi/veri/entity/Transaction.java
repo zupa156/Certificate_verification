@@ -32,6 +32,10 @@ public class Transaction {
 	@Column(name="transactionId", length=20)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int transactionId;
+	
+	@Column(name = "order_id", unique = true) // Add this field
+    private String orderId;
+
 
 	@Column(name="amount", nullable=false)
 	private float amount;
