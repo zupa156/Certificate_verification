@@ -18,6 +18,7 @@ public class AdminServiceImple implements AdminService {
 		return "Admin "+ad.getAdminUserName()+" inserted successfully";
 	}
 
+	
 	@Override
 	public String signIn(String username, String password) {
 		username = "admin";
@@ -27,7 +28,7 @@ public class AdminServiceImple implements AdminService {
 			return "Sign-in successful for user";
 		}else {
 			return "Sign-in failed: Invalid username or password.";
-	
 		}
 	}
+	
 }

@@ -1,8 +1,8 @@
 package com.example.certi.veri.controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.certi.veri.dto.LogIndto;
 import com.example.certi.veri.entity.User;
 import com.example.certi.veri.services.UserServiceImplementation;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/certi/users")
@@ -24,26 +27,22 @@ public class UsersController {
 	
 	//Registration of the user
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@RequestBody User user) {
-	    // Check if the email already exists
-	    if (userv.emailExists(user.getEmail())) {
-	        return ResponseEntity.status(HttpStatus.CONFLICT).body("Email already exists. Please use a different email.");
-	    }
-
-	    try {
-	        // Add the user
-	        userv.addUser(user);
-	        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
-	    } catch (Exception e) {
-	        // Handle exceptions
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred during registration: " + e.getMessage());
-	    }
+	public String register(@RequestBody User user) {
+		if(userv.emailExists(user.getEmail())){
+			return "Email already exist. please use different email.";
+		}
+		//try {
+			userv.addUser(user);
+		//}catch(Exception e) {
+			//return "Got an exception";
+		//}
+		return "Success";
 	}
 	
 	
 	//Login of the user
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password) {
-		return userv.login(email, password);
+	public User login(@RequestBody LogIndto dto) {
+		return userv.login(dto);
 	}
 }

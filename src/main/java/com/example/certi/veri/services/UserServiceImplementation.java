@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.certi.veri.dto.LogIndto;
 import com.example.certi.veri.entity.User;
 import com.example.certi.veri.repository.UserRepository;
 
@@ -37,17 +38,26 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public String login(String email, String password) {
-		User user = urep.findByEmail(email);
-		if(user!= null && user.getUser_password().equals(password)) {
-			return "Login successful";
-		}else {
-			return "Invalid email or password";
-		}	
+	public User login(LogIndto dto) {
+		
+//		User user = urep.findByEmail(email);
+//		if(user.getEmail().equals(email) && user.getUserPassword().equals(password)) {
+//			
+//		}else {
+//			
+//		}
+//		return user;	
+		try {
+		User us = urep.findByEmailAndUserPassword(dto.getEmail(), dto.getPassword());
+		return us;
+		}
+		catch(Exception e) {
+		return null;
+		}
 	}
 
 	@Override
-	public String deleteUser(String userId) {
+	public String deleteUser(Long userId) {
 		if(urep.existsById(userId)) {
 			urep.deleteById(userId);
 			return "User with ID "+ userId+" has been deleted";
@@ -58,7 +68,7 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public Optional<User> getUserById(String id) {
+	public Optional<User> getUserById(Long id) {
 		
 		return urep.findById(id);
 	}
@@ -69,7 +79,7 @@ public class UserServiceImplementation implements UserService{
 	}
 
 	@Override
-	public boolean userExist(String id) {
+	public boolean userExist(Long id) {
 		return urep.existsById(id);
 	}
 

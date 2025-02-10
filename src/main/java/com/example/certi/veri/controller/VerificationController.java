@@ -9,10 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.certi.veri.dto.VerificationDto;
 import com.example.certi.veri.entity.Certificate;
 import com.example.certi.veri.entity.Transaction;
 import com.example.certi.veri.entity.Verification;
@@ -37,11 +39,11 @@ public class VerificationController {
 	
 	
 	@PostMapping("/initiate-verification")
-	public ResponseEntity<?> initiateVerification(@RequestParam String id, @RequestParam String studentName, @RequestParam int prn ) throws RazorpayException{
+	public ResponseEntity<?> initiateVerification(@RequestBody VerificationDto dto) throws RazorpayException{
 		
 		
 		//Checking if certificate details are matching or not
-		Certificate certi = vserv.verifyCertificate(id, studentName, prn);
+		Certificate certi = vserv.verifyCertificate(dto);
 		if(certi == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Certificate not found or the details do not match");
 		}
@@ -49,7 +51,7 @@ public class VerificationController {
 		//creating payment order
 		float amount = 100.0f;
 		String currency = "INR";
-		String receipt = "receipt_"+id;
+		String receipt = "receipt_"+dto.getCertificateId();
 		
 		String orderId = tserv.createOrder(amount, currency, receipt);
 	

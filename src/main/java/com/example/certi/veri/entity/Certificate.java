@@ -14,6 +14,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 //import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,7 @@ public class Certificate {
 
 	@Column(name = "completion_Date")
 	@Temporal(TemporalType.DATE)
-	private Date completion_Date;
+	private Date completionDate;
 
 	@Column(name = "course_Name", length=50, nullable=false)
 	private String course_Name;
@@ -55,6 +56,7 @@ public class Certificate {
 	@JoinColumn(name = "marksId", referencedColumnName = "marksId")
 	private Mark marks;
 
+	@Transient
 	@OneToMany(mappedBy = "certificate", fetch = FetchType.EAGER)
 	private List<Verification> verification;
 

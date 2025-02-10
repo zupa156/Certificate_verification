@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.certi.veri.dto.LogIndto;
+import com.example.certi.veri.entity.Admin;
 import com.example.certi.veri.entity.Certificate;
 import com.example.certi.veri.entity.User;
 import com.example.certi.veri.services.AdminServiceImple;
@@ -37,12 +39,22 @@ public class AdminController {
 	UserServiceImplementation userv;
 	
 	
+	private String username = "admin";
+	private String password = "admin123";
+
+	
 	
 	//All Admin service
-	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password) {
-		return aserv.signIn(email, password);
-	}
+	@PostMapping("/adminlogin")
+    public String login(@RequestBody LogIndto dto) {
+		//Admin admin = new Admin();
+        if (dto.getUserName().equals(username) && dto.getPassword().equals(password)) {
+            return "Login successful! Welcome, Admin.";
+        } else {
+            return "Invalid credentials! Access denied.";
+        }
+    }
+
 	
 	//All certificates services
 	@PostMapping("/addCerti")
@@ -93,14 +105,14 @@ public class AdminController {
 	}
 	
 	@GetMapping("/users/{id}")
-	public ResponseEntity<User> getUserById(@PathVariable String id){
+	public ResponseEntity<User> getUserById(@PathVariable Long id){
 		Optional<User> user = userv.getUserById(id);
 		return user.map(ResponseEntity::ok)
 				.orElseGet(()->ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
 	@DeleteMapping("/deleteUser/{id}")
-	public ResponseEntity<String> deleteUser(@PathVariable String id){
+	public ResponseEntity<String> deleteUser(@PathVariable Long id){
 		if(userv.userExist(id)) {
 			userv.deleteUser(id);
 			return ResponseEntity.noContent().build();

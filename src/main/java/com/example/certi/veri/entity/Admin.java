@@ -22,7 +22,8 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long adminId;
 	@Column(length = 50, nullable = false, unique = true)
-	private String adminUserName;
+	private String adminUserName ="admin";
 	@Column( nullable = false)
-	private String adminPassword;
+	private String adminPassword= "admin123";
+	
 }

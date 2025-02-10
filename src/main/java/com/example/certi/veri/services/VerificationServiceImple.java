@@ -7,8 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.certi.veri.dto.VerificationDto;
 import com.example.certi.veri.entity.Certificate;
 import com.example.certi.veri.entity.Verification;
+import com.example.certi.veri.exception.CertificateNotFoundException;
 import com.example.certi.veri.repository.CertificateRepository;
 import com.example.certi.veri.repository.VerificationRepository;
 
@@ -32,22 +34,28 @@ public class VerificationServiceImple implements VerificationService{
 	}
 
 	@Override
-	public Certificate verifyCertificate(String certificateId, String studentName, int prn) {
-		Optional<Certificate> certiOpt = crep.findByCertificateIdAndStudentNameAndPrn(certificateId, studentName, prn);
-		if(certiOpt.isPresent()) {
-			Certificate certi = certiOpt.get();
-			
-			Verification veri = new Verification();
-			veri.setStatus("Verified");
-			veri.setType("Manual");
-			veri.setVerifiedDate(new Date());
-			veri.setCertificate(certi);
-			vrep.save(veri);
-			
-			return certi;
-		}else {
-			return null;
-		}
+	public Certificate verifyCertificate(VerificationDto dto) {
+		Optional<Certificate> certiOpt = crep.findByCertificateIdAndStudentNameAndPrn(dto.getCertificateId(), dto.getStudentName(), dto.getPrn());
+		 if (certiOpt.isPresent()) {
+		        Certificate certi = certiOpt.get();
+		        
+		        Verification veri = new Verification();
+		        veri.setStatus("Verified");
+		        veri.setType("Manual");
+		        veri.setVerifiedDate(new Date());
+		        veri.setCertificate(certi);
+		        
+		        // Save the verification record
+		        vrep.save(veri);
+		        
+		        return certi; // Return the verified certificate
+		    } else {
+		        // Optionally log the event
+		        // logger.warn("Certificate not found for ID: {}, Student Name: {}, PRN: {}", certificateId, studentName, prn);
+		        
+		        // Throw a custom exception instead of returning null
+		        throw new CertificateNotFoundException("Certificate not found for the provided details.");
+		    }
 		
 	}
 
